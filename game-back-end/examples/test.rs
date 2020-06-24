@@ -45,31 +45,31 @@ fn main() {
     // use game_back_end::schema::users::dsl::{users, user_email};
     // // use crate::schema::users::dsl::*;
     // // use game_back_end::schema::users::dsl::*;
-    let cors = rocket_cors::CorsOptions::default().to_cors().unwrap();
+    // let cors = rocket_cors::CorsOptions::default().to_cors().unwrap();
 
-    rocket::ignite()
-        // .mount("/", routes![question_for_front_end])
-        // .mount("/", routes![test_time])
-        .mount("/", routes![save_player_data])
-        // .mount("/", routes![return_players])
-        // .mount("/", routes![return_top_scorer])
-        // .mount("/", routes![return_winner]) 
-        .mount("/", routes![private_score])  
-        .mount("/", routes![public_rank])
-        .mount("/", routes![general_question])
-        .mount("/", routes![history_question])
-        .mount("/", routes![science_question])
-        .mount("/", routes![calculating_question])
-        .mount("/", routes![history_last_five_result])
-        .mount("/", routes![science_last_five_result])
-        .mount("/", routes![calculating_last_five_result])
-        .mount("/", routes![general_last_five_result])
-        .mount("/", routes![top_ten_history_result])
-        .mount("/", routes![top_ten_science_result])
-        .mount("/", routes![top_ten_calculating_result])
-        .mount("/", routes![top_ten_general_result])
-        .attach(cors)
-        .launch();
+    // rocket::ignite()
+    //     // .mount("/", routes![question_for_front_end])
+    //     // .mount("/", routes![test_time])
+    //     .mount("/", routes![save_player_data])
+    //     // .mount("/", routes![return_players])
+    //     // .mount("/", routes![return_top_scorer])
+    //     // .mount("/", routes![return_winner]) 
+    //     .mount("/", routes![private_score])  
+    //     .mount("/", routes![public_rank])
+    //     .mount("/", routes![general_question])
+    //     .mount("/", routes![history_question])
+    //     .mount("/", routes![science_question])
+    //     .mount("/", routes![calculating_question])
+    //     .mount("/", routes![history_last_five_result])
+    //     .mount("/", routes![science_last_five_result])
+    //     .mount("/", routes![calculating_last_five_result])
+    //     .mount("/", routes![general_last_five_result])
+    //     .mount("/", routes![top_ten_history_result])
+    //     .mount("/", routes![top_ten_science_result])
+    //     .mount("/", routes![top_ten_calculating_result])
+    //     .mount("/", routes![top_ten_general_result])
+    //     .attach(cors)
+    //     .launch();
 
 
     // let name = String::from("shing");
@@ -114,7 +114,7 @@ fn main() {
     // let result = random_question_category(String::from("general"));
     // println!("{:#?}", result);
 
-    // save_question_to_db();
+    save_question_to_db();
 
     // let result = random_question_category(String::from("science"));
     // println!("{:#?}", result);
