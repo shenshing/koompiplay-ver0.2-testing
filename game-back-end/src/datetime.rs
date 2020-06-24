@@ -92,7 +92,8 @@ pub fn find_winner(duration: Duration) -> Json<PlayerQue> {
         playername: String::from("winner"),
         score: 100i32,
         playdate: SystemTime::now(),
-        email: String::from("winner@gmail.com")
+        email: String::from("winner@gmail.com"),
+        quiz_category: String::from("quiz_category")
     };
 
     
@@ -110,7 +111,8 @@ pub fn find_winner(duration: Duration) -> Json<PlayerQue> {
         playername: win1.playername.clone(),
         score: win1.score,
         playdate: win1.playdate,
-        email: win1.email.clone()
+        email: win1.email.clone(),
+        quiz_category: win1.quiz_category.clone()
     };
 
     return Json(win);

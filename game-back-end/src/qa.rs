@@ -59,7 +59,7 @@ pub fn save_question_to_db() {
 }
 
 //random answer
-use crate::models::Question;
+use crate::models::{Question};
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 pub fn random_answer(question: Vec<QADB>) -> Vec<Question> {
@@ -127,6 +127,7 @@ pub fn random_question_category(cate: String) -> Result<Vec<QADB>, diesel::resul
     }
     return result;
 }
+
 
 #[get("/general-question")]
 pub fn general_question() -> Json<Vec<Question>> {
