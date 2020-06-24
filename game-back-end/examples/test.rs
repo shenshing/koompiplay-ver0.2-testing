@@ -15,12 +15,17 @@ extern crate diesel;
 // use game_back_end::qa::static_rocket_route_info_for_question_for_front_end;
 // use game_back_end::datetime::{Duration, query_top_scorer, find_winner};
 // use game_back_end::models::{PlayerQue};
-use game_back_end::score::static_rocket_route_info_for_private_score;
-use game_back_end::score::static_rocket_route_info_for_public_score;
+// use game_back_end::score::static_rocket_route_info_for_private_score;
+// use game_back_end::score::static_rocket_route_info_for_public_rank;
+use game_back_end::qa::static_rocket_route_info_for_general_question;
+use game_back_end::qa::static_rocket_route_info_for_history_question;
+use game_back_end::qa::static_rocket_route_info_for_science_question;
+use game_back_end::qa::static_rocket_route_info_for_calculating_question;
 use game_back_end::score::{hello};
 use game_back_end::models::Player;
 use game_back_end::user::save_user_to_db;
 use game_back_end::models::Score;
+use game_back_end::qa::*;
 
 extern crate rocket_cors;
 
@@ -36,9 +41,9 @@ use game_back_end::score::last_five_game_score;
 
 
 fn main() {
-    use game_back_end::schema::users::dsl::{users, user_email};
-    // use crate::schema::users::dsl::*;
-    // use game_back_end::schema::users::dsl::*;
+    // use game_back_end::schema::users::dsl::{users, user_email};
+    // // use crate::schema::users::dsl::*;
+    // // use game_back_end::schema::users::dsl::*;
     let cors = rocket_cors::CorsOptions::default().to_cors().unwrap();
 
     rocket::ignite()
@@ -48,8 +53,12 @@ fn main() {
         // .mount("/", routes![return_players])
         // .mount("/", routes![return_top_scorer])
         // .mount("/", routes![return_winner]) 
-        .mount("/", routes![private_score])  
-        .mount("/", routes![public_rank])
+        // .mount("/", routes![private_score])  
+        // .mount("/", routes![public_rank])
+        .mount("/", routes![general_question])
+        .mount("/", routes![history_question])
+        .mount("/", routes![science_question])
+        .mount("/", routes![calculating_question])
         .attach(cors)
         .launch();
 
@@ -82,6 +91,26 @@ fn main() {
 
     // let email = String::from("a@gmai.com");
     // let result = last_five_game_score(email);
+    // println!("{:#?}", result);
+
+    // let result = random_question_category(String::from("questions"));
+    // println!("{:#?}", result);
+
+
+    // save_to_general_knowledge_db();
+    // save_to_history_question_db();
+    // save_to_science_question_db();
+    // save_to_calculating_question_db();
+
+    // let result = random_question_category(String::from("general"));
+    // println!("{:#?}", result);
+
+    // save_question_to_db();
+
+    // let result = random_question_category(String::from("science"));
+    // println!("{:#?}", result);
+
+    // let result = random_question();
     // println!("{:#?}", result);
 
 }

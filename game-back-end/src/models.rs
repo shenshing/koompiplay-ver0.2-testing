@@ -74,7 +74,8 @@ pub struct QADB {
     pub incorrect_answer2:   String,
     pub incorrect_answer3:   String,
     pub incorrect_answer4:   String,
-    pub incorrect_answer5:   String
+    pub incorrect_answer5:   String,
+    pub category:            String
 }
 
 use super::schema::questions;
@@ -87,21 +88,12 @@ pub struct QandA {
     pub incorrect_answer2:   String,
     pub incorrect_answer3:   String,
     pub incorrect_answer4:   String,
-    pub incorrect_answer5:   String
+    pub incorrect_answer5:   String,
+    pub category:            String
 }
 
 #[derive(Serialize, Debug)]
 pub struct Question {
-    pub question_id:         i32,
-    pub question:            String,
-    pub correct_answer:      String,
-    pub incorrect_answer1:   String,
-    pub incorrect_answer2:   String,
-    pub incorrect_answer3:   String
-}
-
-#[derive(Serialize, Debug)]
-pub struct Question1 {
     pub question:       String,
     pub optionA:        String,
     pub optionB:        String,

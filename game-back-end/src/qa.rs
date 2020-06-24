@@ -6,16 +6,6 @@ extern crate serde;
 use serde::{Serialize, Deserialize};
 
 use rocket_contrib::json::Json;
-#[derive(Deserialize, Serialize)]
-pub struct QA {
-    pub question: String,
-    pub answer: String,
-}
-
-
-
-
-
 
 
 use std::fs;
@@ -28,7 +18,7 @@ pub fn save_question_to_db() {
 
     use crate::schema::questions::dsl::*;
 
-    let content = fs::read_to_string("/home/koompi/Desktop/play.txt")
+    let content = fs::read_to_string("/home/koompi/Desktop/play1.txt")
         .expect("open file error");
 
     let mut vec_question: Vec<QandA> = Vec::new();
@@ -42,10 +32,16 @@ pub fn save_question_to_db() {
             incorrect_answer2:  vec[3].to_string(),
             incorrect_answer3:  vec[4].to_string(),
             incorrect_answer4:  vec[5].to_string(),
-            incorrect_answer5:  vec[6].to_string()
+            incorrect_answer5:  vec[6].to_string(),
+            category:           vec[7].to_string(),
+            // category:           String::from("a")
         };
         vec_question.push(q_a);
+        println!("{}", vec[7]);
+        // println!("{}", line);
     }
+
+    // println!("{:#?}", vec_question);
 
     let insert_result = insert_into(questions)
         .values(&vec_question)
@@ -61,12 +57,11 @@ pub fn save_question_to_db() {
 
 //random answer
 use crate::models::Question;
-use crate::models::Question1;
 use rand::seq::SliceRandom;
 use rand::thread_rng;
-pub fn random_answer(question: Vec<QADB>) -> Vec<Question1> {
+pub fn random_answer(question: Vec<QADB>) -> Vec<Question> {
     
-    let mut formal_question: Vec<Question1> = Vec::new();
+    let mut formal_question: Vec<Question> = Vec::new();
 
     for q in question.iter() {
         
@@ -87,7 +82,7 @@ pub fn random_answer(question: Vec<QADB>) -> Vec<Question1> {
         final_answer.shuffle(&mut rng);
 
 
-        let quest = Question1 {
+        let quest = Question {
             question:       q.question.clone(),
             optionA:        final_answer[0].to_string(),
             optionB:        final_answer[1].to_string(),
@@ -117,8 +112,38 @@ pub fn random_question() -> Result<Vec<QADB>, diesel::result::Error> {
     return result;
 }
 
+pub fn random_question_category(cate: String) -> Result<Vec<QADB>, diesel::result::Error> {
+    let statement = format!("Select * From questions Where category='{}' Order By random() limit 5;", cate);
 
-#[get("/question")]
-pub fn question_for_front_end() -> Json<Vec<Question1>> {
+    let result = sql_query(statement)
+        .get_results(&establish_connection());
+
+    match result {
+        Ok(ok) => return Ok(ok),
+        Err(err) => return Err(err),
+    }
+    return result;
+}
+
+#[get("/general-question")]
+pub fn general_question() -> Json<Vec<Question>> {
     return Json(random_answer(random_question().unwrap()));
+}
+
+#[get("/history-question")]
+pub fn history_question() -> Json<Vec<Question>> {
+    let cate = String::from("history");
+    return Json(random_answer(random_question_category(cate).unwrap()));
+}
+
+#[get("/science-question")]
+pub fn science_question() -> Json<Vec<Question>> {
+    let cate = String::from("science");
+    return Json(random_answer(random_question_category(cate).unwrap()));
+}
+
+#[get("/calculating-question")]
+pub fn calculating_question() -> Json<Vec<Question>> {
+    let cate = String::from("calculating");
+    return Json(random_answer(random_question_category(cate).unwrap()));
 }

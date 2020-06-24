@@ -1,4 +1,43 @@
 table! {
+    calculating (question_id) {
+        question_id -> Int4,
+        question -> Varchar,
+        correct_answer -> Varchar,
+        incorrect_answer1 -> Varchar,
+        incorrect_answer2 -> Varchar,
+        incorrect_answer3 -> Varchar,
+        incorrect_answer4 -> Varchar,
+        incorrect_answer5 -> Varchar,
+    }
+}
+
+table! {
+    general (question_id) {
+        question_id -> Int4,
+        question -> Varchar,
+        correct_answer -> Varchar,
+        incorrect_answer1 -> Varchar,
+        incorrect_answer2 -> Varchar,
+        incorrect_answer3 -> Varchar,
+        incorrect_answer4 -> Varchar,
+        incorrect_answer5 -> Varchar,
+    }
+}
+
+table! {
+    history (question_id) {
+        question_id -> Int4,
+        question -> Varchar,
+        correct_answer -> Varchar,
+        incorrect_answer1 -> Varchar,
+        incorrect_answer2 -> Varchar,
+        incorrect_answer3 -> Varchar,
+        incorrect_answer4 -> Varchar,
+        incorrect_answer5 -> Varchar,
+    }
+}
+
+table! {
     players (id) {
         id -> Int4,
         playername -> Varchar,
@@ -10,6 +49,20 @@ table! {
 
 table! {
     questions (question_id) {
+        question_id -> Int4,
+        question -> Varchar,
+        correct_answer -> Varchar,
+        incorrect_answer1 -> Varchar,
+        incorrect_answer2 -> Varchar,
+        incorrect_answer3 -> Varchar,
+        incorrect_answer4 -> Varchar,
+        incorrect_answer5 -> Varchar,
+        category -> Varchar,
+    }
+}
+
+table! {
+    science (question_id) {
         question_id -> Int4,
         question -> Varchar,
         correct_answer -> Varchar,
@@ -38,7 +91,11 @@ table! {
 }
 
 allow_tables_to_appear_in_same_query!(
+    calculating,
+    general,
+    history,
     players,
     questions,
+    science,
     users,
 );
