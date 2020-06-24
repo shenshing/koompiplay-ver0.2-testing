@@ -18,7 +18,10 @@ pub fn save_question_to_db() {
 
     use crate::schema::questions::dsl::*;
 
-    let content = fs::read_to_string("/home/koompi/Desktop/play1.txt")
+    // let content = fs::read_to_string("/home/koompi/Desktop/play1.txt")
+    //     .expect("open file error");
+
+    let content = fs::read_to_string("./play.txt")
         .expect("open file error");
 
     let mut vec_question: Vec<QandA> = Vec::new();
