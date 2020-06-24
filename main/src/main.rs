@@ -66,7 +66,12 @@ fn main() {
                             general_question,
                             history_question,
                             science_question,
-                            calculating_question
+                            calculating_question,
+
+                            history_last_five_result,
+                            science_last_five_result,
+                            calculating_last_five_result,
+                            general_last_five_result
                             ])
         .attach(cors)
         .attach(Template::fairing())
