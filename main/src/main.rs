@@ -58,11 +58,15 @@ fn main() {
 
                             all_type_register,
                             all_type_login,
-                            question_for_front_end,
+                            // question_for_front_end,
 
                             //version0.2
                             private_score,
-                            public_rank
+                            public_rank,
+                            general_question,
+                            history_question,
+                            science_question,
+                            calculating_question
                             ])
         .attach(cors)
         .attach(Template::fairing())
