@@ -64,6 +64,10 @@ fn main() {
         .mount("/", routes![science_last_five_result])
         .mount("/", routes![calculating_last_five_result])
         .mount("/", routes![general_last_five_result])
+        .mount("/", routes![top_ten_history_result])
+        .mount("/", routes![top_ten_science_result])
+        .mount("/", routes![top_ten_calculating_result])
+        .mount("/", routes![top_ten_general_result])
         .attach(cors)
         .launch();
 
@@ -126,4 +130,8 @@ fn main() {
     // let result = private_query_history_result(email);
     // println!("{:#?}", result);
 
+
+    // let category = String::from("calculating");
+    // let result = public_query_result(category);
+    // println!("{:#?}", result);
 }

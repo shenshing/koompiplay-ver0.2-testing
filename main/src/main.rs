@@ -71,7 +71,12 @@ fn main() {
                             history_last_five_result,
                             science_last_five_result,
                             calculating_last_five_result,
-                            general_last_five_result
+                            general_last_five_result,
+
+                            top_ten_history_result,
+                            top_ten_science_result,
+                            top_ten_calculating_result,
+                            top_ten_general_result
                             ])
         .attach(cors)
         .attach(Template::fairing())

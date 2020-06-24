@@ -101,7 +101,7 @@ pub fn get_score() -> Result<Vec<PlayerQue>, diesel::result::Error> {
 use diesel::prelude::*;
 // use diesel::pg::PgConnection;
 use diesel::dsl::*;
-pub fn private_query_history_result(given_email: String, category: String) -> Result<Vec<PlayerQue>, String> {
+pub fn private_query_result(given_email: String, category: String) -> Result<Vec<PlayerQue>, String> {
     use crate::schema::users::dsl::users;
     use crate::schema::users::columns::user_email;
 
@@ -112,7 +112,8 @@ pub fn private_query_history_result(given_email: String, category: String) -> Re
 
     match result {
         Ok(ok) => {
-            let statement = format!("Select * From player Where email='{}' And quiz_category='{}' Order By score Desc limit 5;", given_email.clone(), category.clone());
+            // let statement = format!("Select * From player Where email='{}' And quiz_category='{}' Order By score Desc limit 5;", given_email.clone(), category.clone());
+            let statement = format!("Select * From player Where email='{}'  and quiz_category='{}' Order By playdate Desc Limit 5;", given_email, category);
             results = sql_query(statement)
                 .get_results(&establish_connection())
                 .unwrap();
@@ -131,7 +132,7 @@ pub fn history_last_five_result(key: ApiKey) -> Json<Vec<PlayerQue>> {
     let email = decode.claims.user_email;
 
     let category = String::from("history");
-    let data = private_query_history_result(email, category);
+    let data = private_query_result(email, category);
     return Json(data.unwrap());
 }
 
@@ -142,7 +143,7 @@ pub fn science_last_five_result(key: ApiKey) -> Json<Vec<PlayerQue>> {
     let email = decode.claims.user_email;
 
     let category = String::from("science");
-    let data = private_query_history_result(email, category);
+    let data = private_query_result(email, category);
     return Json(data.unwrap());
 }
 
@@ -153,7 +154,7 @@ pub fn calculating_last_five_result(key: ApiKey) -> Json<Vec<PlayerQue>> {
     let email = decode.claims.user_email;
 
     let category = String::from("calculating");
-    let data = private_query_history_result(email, category);
+    let data = private_query_result(email, category);
     return Json(data.unwrap());
 }
 
@@ -164,6 +165,53 @@ pub fn general_last_five_result(key: ApiKey) -> Json<Vec<PlayerQue>> {
     let email = decode.claims.user_email;
 
     let category = String::from("general");
-    let data = private_query_history_result(email, category);
+    let data = private_query_result(email, category);
     return Json(data.unwrap());
+}
+
+pub fn public_query_result(category: String) -> Result<Vec<PlayerQue>, String> {
+    let statement = format!("Select * From player Where quiz_category='{}' Order By score Desc Limit 10;", category);
+    let result = sql_query(statement)
+        .get_results(&establish_connection());
+
+    match result {
+        Ok(data) => {
+            return Ok(data);
+        },
+        Err(err) => {
+            return Err(err.to_string());
+        }
+    }
+}
+
+#[get("/history-top")]
+pub fn top_ten_history_result() -> Json<Vec<PlayerQue>> {
+    let category = String::from("history");
+    let result = public_query_result(category).unwrap();
+
+    return Json(result);
+}
+
+#[get("/science-top")]
+pub fn top_ten_science_result() -> Json<Vec<PlayerQue>> {
+    let category = String::from("science");
+    let result = public_query_result(category).unwrap();
+
+    return Json(result);
+}
+
+#[get("/calculating-top")]
+pub fn top_ten_calculating_result() -> Json<Vec<PlayerQue>> {
+    let category = String::from("calculating");
+    let result = public_query_result(category).unwrap();
+
+    return Json(result);
+}
+
+#[get("/general-top")]
+pub fn top_ten_general_result() -> Json<Vec<PlayerQue>> {
+    let category = String::from("general");
+    let result = public_query_result(category).unwrap();
+
+    return Json(result);
 }
