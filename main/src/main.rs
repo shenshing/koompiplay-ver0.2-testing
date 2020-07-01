@@ -5,11 +5,14 @@
 
 extern crate userInfo;
 use userInfo::insert_user;
+
 extern crate game_back_end;
 use self::game_back_end::user::*;
 use self::game_back_end::qa::*;
 use self::game_back_end::score::*;
 
+extern crate zeetomic;
+use self::zeetomic::wallet::*;
 extern crate diesel;
 use self::userInfo::*;
 extern crate rocket_cors;
@@ -76,7 +79,9 @@ fn main() {
                             top_ten_history_result,
                             top_ten_science_result,
                             top_ten_calculating_result,
-                            top_ten_general_result
+                            top_ten_general_result,
+
+                            save_wallet_to_db
                             ])
         .attach(cors)
         .attach(Template::fairing())
