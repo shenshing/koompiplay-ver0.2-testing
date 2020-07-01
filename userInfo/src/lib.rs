@@ -598,6 +598,12 @@ pub fn updatePhone(key: ApiKey, newInfo: Json<updateItem>) -> Json<stringObj> {
     }
 }
 
+#[post("/request", data="<st>")]
+pub fn return_st(st: Json<stringObj>) -> String {
+    // String::from("Successful")
+    format!("Successfull {}", st.string)
+}
+    
 #[get("/display")]
 pub fn displayUser() -> String {
     let from_db = get_user(&establish_connection());

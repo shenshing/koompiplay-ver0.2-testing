@@ -23,27 +23,37 @@ extern crate rocket_cors;
 use userInfo::models::static_rocket_route_info_for_sensitive;
 use userInfo::static_rocket_route_info_for_all_type_register;
 use userInfo::static_rocket_route_info_for_all_type_login;
+use userInfo::static_rocket_route_info_for_return_st;
 use userInfo::models::is_valid_token;
 use diesel::dsl::sql_query;
 use diesel::query_dsl::RunQueryDsl;
 use jsonwebtoken::Validation;
+
+use userInfo::models::stringObj;
+
+// #[macro_use]
+// extern crate json;
+
+use jsonwebtoken::encode;
+
 
 fn main() {
     // let token = String::from("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJrb29tcGlQbGF5IiwiZXhwIjoxNjAwNTk0MjQwLCJpYXQiOjE1ODY0MjQ2NDAsImlzcyI6Imtvb21waVBsYXkiLCJzdWIiOiJsb2dpbiIsInVzZXJfbmFtZSI6InNoaW5nIiwidXNlcl9wYXNzd29yZCI6IjEyMyIsInVzZXJfcm9sZSI6IlVzZXIifQ.mi7rDF5AcQcQeUhKJhSTGKTvH5_W9tAE5TydZcPx8jU");
     // let dec_res = jsonwebtoken::decode::<Claims>(&token, "secret".as_ref(), &Validation::default()).unwrap();
     // println!("{:#?}", dec_res);
 
-        // let cors = rocket_cors::CorsOptions::default().to_cors().unwrap();
+        let cors = rocket_cors::CorsOptions::default().to_cors().unwrap();
         
-        // rocket::ignite()
-        //     // .mount("/", routes![get_profile])
-        //     // .mount("/", routes![upload])
-        //     // .mount("/", routes![])
-        //     // .mount("/", routes![sensitive])
-        //     .mount("/", routes![all_type_register])
-        //     .mount("/", routes![all_type_login])
-        //     // .attach(cors)
-        //     .launch();
+        rocket::ignite()
+            // .mount("/", routes![get_profile])
+            // .mount("/", routes![upload])
+            // .mount("/", routes![])
+            // .mount("/", routes![sensitive])
+            // .mount("/", routes![all_type_register])
+            // .mount("/", routes![all_type_login])
+            .mount("/", routes![return_st])
+            // .attach(cors)
+            .launch();
 
     // let file_name = String::from("a.txt");
     // let file_fmt = format!("/home/koompi/Documents/koompi-play-production/userInfo/image-bank/{}", file_name);
@@ -74,7 +84,7 @@ fn main() {
     //     login_type:         String::from("local")
     // };
 
-    let conn = establish_connection();
+    // let conn = establish_connection();
 
     // let result = insert_all_type_of_user(&conn, user);
 
@@ -96,11 +106,14 @@ fn main() {
 
     // let token = String::from("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJrb29tcGlQbGF5IiwiZXhwIjoxNjA2MDE3MTI3LCJ1c2VyX2VtYWlsIjoic29sbzRAZ21haWwuY29tIiwidXNlcl9yb2xlIjoiVXNlciJ9.T4xgQ4SdmzcNUg7M-DemNANeUaB3alO0NR5oIEfc1Zs");
     // let token = String::from("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJrb29tcGlQbGF5IiwiZXhwIjoxNTkxODQ4NjIxLCJ1c2VyX2VtYWlsIjoic29sbzRAZ21haWwuY29tIiwidXNlcl9yb2xlIjoiVXNlciJ9.td0dfUaaJR_Mr9QrTYuQcF0GzEg0LEhCOWgHK3Q3gCg");
-    let token = String::from("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJrb29tcGlQbGF5IiwiZXhwIjoxNTkxOTM2MjY5LCJ1c2VyX2VtYWlsIjoic29sbzRAZ21haWwuY29tIiwidXNlcl9yb2xlIjoiVXNlciJ9.pYdXahhUa_hZmnIy-pTDdw9SGz6cFs_iDGzRcX2UXJU");
-    let result = is_valid_token(&token);
-    println!("{}", result);
+    // let token = String::from("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJrb29tcGlQbGF5IiwiZXhwIjoxNTkxOTM2MjY5LCJ1c2VyX2VtYWlsIjoic29sbzRAZ21haWwuY29tIiwidXNlcl9yb2xlIjoiVXNlciJ9.pYdXahhUa_hZmnIy-pTDdw9SGz6cFs_iDGzRcX2UXJU");
+    // let result = is_valid_token(&token);
+    // println!("{}", result);
 
 
     // let validation = Validation::default();
     // println!("{:#?}", validation);
+
+    // println!("Hello World");
+
 }
