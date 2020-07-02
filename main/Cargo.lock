@@ -1920,4 +1920,5 @@ dependencies = [
  "rocket_cors",
  "serde",
  "serde_json",
+ "userInfo",
 ]
