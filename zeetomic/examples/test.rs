@@ -22,6 +22,7 @@ fn main() {
 
     rocket::ignite()
         .mount("/", routes![save_wallet_to_db])
+        .mount("/", routes![get_wallet_info])
         .attach(cors)
         .launch();
 
@@ -147,4 +148,8 @@ fn main() {
     // println!("{:#?}", handle);
 
 
+
+    // let email = String::from("shing11@gmail.com");
+    // let result = filter_wallet(email);
+    // println!("{:#?}", result);
 }

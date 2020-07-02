@@ -39,3 +39,56 @@ pub fn save_wallet_to_db(key: ApiKey, new_wallet: Json<Wallet>) -> Json<stringOb
         )
     }
 }
+
+use userInfo::Find;
+pub fn filter_wallet(email_: String) -> Find {
+    // use self::schema::zee_wallet::dsl::{zee_wallet, email};
+    use crate::schema::zee_wallet::dsl::{zee_wallet};
+    use crate::schema::zee_wallet::columns::email;
+    let email_pattern = format!("%{}%", format_args!("{}", email_));
+
+    let result = zee_wallet.filter(email.like(email_pattern))
+        .execute(&establish_connection())
+        .unwrap();
+    if(result == 0) {
+        return Find::Notfound;
+    } else {
+        return Find::Found;
+    }
+}
+
+use userInfo::filter_user;
+use crate::models::_Wallet;
+#[get("/get-wallet")]
+// pub fn get_wallet_info(key: ApiKey) -> Json<_Wallet> {
+pub fn get_wallet_info(key: ApiKey) -> Json<_Wallet> {
+    use crate::schema::zee_wallet::dsl::{zee_wallet};
+    use crate::schema::zee_wallet::columns::email;
+
+    let token = key.into_inner();
+    let claim = decode_token(token.clone().to_string());
+    let user_email = claim.claims.user_email;
+
+    let find_result = filter_user(token.clone());
+
+
+    if(filter_wallet(user_email.clone()) == Find::Found) {
+        let email_pattern = format!("%{}%", format_args!("{}", user_email));
+        let wallet: _Wallet = zee_wallet.filter(email.like(email_pattern))
+            .get_result(&establish_connection())
+            .unwrap();
+        return Json(wallet);
+    } else {
+        // return format!("No wallet found for user");
+        // return Json(Err(stringObj {
+        //     string: String::from("No wallet found for users"),
+        // }))
+        return Json(_Wallet {
+            id: 0i32,
+            wallet_id: String::from("default"),
+            wallet: String::from("default"),
+            email: String::from("default")
+        })
+    }
+
+}

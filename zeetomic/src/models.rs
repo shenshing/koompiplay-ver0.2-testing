@@ -25,7 +25,8 @@ pub struct Wallet {
     pub email:      String
 }
 
-#[derive(Queryable, Deserialize)]
+#[derive(Queryable, Deserialize, Serialize, Insertable)]
+#[table_name="zee_wallet"]
 pub struct _Wallet {
     pub id:         i32,
     pub wallet_id:  String,
