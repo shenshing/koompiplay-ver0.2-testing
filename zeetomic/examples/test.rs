@@ -18,31 +18,31 @@ use zeetomic::wallet::*;
 fn main() {
 
 
-    let cors = rocket_cors::CorsOptions::default().to_cors().unwrap();
+    // let cors = rocket_cors::CorsOptions::default().to_cors().unwrap();
 
-    rocket::ignite()
-        .mount("/", routes![save_wallet_to_db])
-        .mount("/", routes![get_wallet_info])
-        .attach(cors)
-        .launch();
+    // rocket::ignite()
+    //     .mount("/", routes![save_wallet_to_db])
+    //     .mount("/", routes![get_wallet_info])
+    //     .attach(cors)
+    //     .launch();
 
-    // let mut result: Strin?g = String::from("");
-    // let mut data = Vec::new();
-    // let mut handle = Easy::new();
-    // handle.url("https://backend.satisyou.com").unwrap();
-    // {
-    //     let mut transfer = handle.transfer();
-    //     transfer
-    //         .write_function(|new_data| {
-    //             data.extend_from_slice(new_data);
-    //             Ok(new_data.len())
-    //         })
-    //         .unwrap();
-    //     transfer.perform().unwrap();
-    // }
-    // result = String::from_utf8(data).unwrap();
+    let mut result: String = String::from("");
+    let mut data = Vec::new();
+    let mut handle = Easy::new();
+    handle.url("https://backend.satisyou.com").unwrap();
+    {
+        let mut transfer = handle.transfer();
+        transfer
+            .write_function(|new_data| {
+                data.extend_from_slice(new_data);
+                Ok(new_data.len())
+            })
+            .unwrap();
+        transfer.perform().unwrap();
+    }
+    result = String::from_utf8(data).unwrap();
 
-    // println!("{}", result);
+    println!("{}", result);
 
     // let mut string = String::from("hello");
     // let mut data_to_upload = &b"foobar"[..];

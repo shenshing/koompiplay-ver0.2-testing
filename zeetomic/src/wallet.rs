@@ -6,20 +6,21 @@ use crate::models::{Wallet, stringObj};
 use crate::establish_connection;
 use diesel::prelude::*;
 #[post("/create-wallet", data="<new_wallet>")]
-pub fn save_wallet_to_db(key: ApiKey, new_wallet: Json<Wallet>) -> Json<stringObj> {
+// pub fn save_wallet_to_db(key: ApiKey, new_wallet: Json<Wallet>) -> Json<stringObj> {
+pub fn save_wallet_to_db(new_wallet: Json<Wallet>) -> Json<stringObj> {
     use crate::schema::zee_wallet;
 
     // let wallet_data = new_wallet.into_inner().clone();
 
-    let token = key.into_inner();
-    let claim = decode_token(token.clone().to_string());
-    let save_email = claim.claims.user_email;
-    let wallet_ = new_wallet.into_inner();
+    // let token = key.into_inner();
+    // let claim = decode_token(token.clone().to_string());
+    // let save_email = claim.claims.user_email;
+    // let wallet_ = new_wallet.into_inner();
 
     let save_wallet = Wallet {
-        wallet_id: wallet_.wallet_id,
-        wallet: wallet_.wallet,
-        email:  save_email
+        wallet_id: new_wallet.wallet_id.clone(),
+        wallet: new_wallet.wallet.clone(),
+        email:  new_wallet.email.clone()
     };
 
     let insert_result = diesel::insert_into(zee_wallet::table)
