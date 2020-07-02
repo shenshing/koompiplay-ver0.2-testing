@@ -81,7 +81,8 @@ fn main() {
                             top_ten_calculating_result,
                             top_ten_general_result,
 
-                            save_wallet_to_db
+                            save_wallet_to_db,
+                            get_wallet_info
                             ])
         .attach(cors)
         .attach(Template::fairing())
