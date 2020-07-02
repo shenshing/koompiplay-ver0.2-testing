@@ -7,6 +7,8 @@ use diesel::prelude::*;
 
 extern crate serde;
 
+extern crate userInfo;
+
 use std::env;
 use dotenv::dotenv;
 use diesel::pg::PgConnection;

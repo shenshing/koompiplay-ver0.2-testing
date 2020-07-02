@@ -17,18 +17,20 @@ pub struct st {
 
 // use super::schema::zee_wallet;
 use crate::schema::zee_wallet;
-#[derive(Insertable, Deserialize, Debug)]
+#[derive(Insertable, Deserialize, Debug, Clone)]
 #[table_name="zee_wallet"]
 pub struct Wallet {
     pub wallet_id:  String,
-    pub wallet:     String
+    pub wallet:     String,
+    pub email:      String
 }
 
 #[derive(Queryable, Deserialize)]
 pub struct _Wallet {
     pub id:         i32,
     pub wallet_id:  String,
-    pub wallet:     String
+    pub wallet:     String,
+    pub email:      String
 }
 
 use rocket::{Request, Data, Outcome::*};
@@ -39,7 +41,8 @@ impl FromDataSimple for Wallet {
     fn from_data(req: &Request, data: Data) -> data::Outcome<Self, String> {
         let new_wallet = Wallet {
             wallet_id:  String::from("default"),
-            wallet:     String::from("default")
+            wallet:     String::from("default"),
+            email:      String::from("default")
         };
         Success(new_wallet)
     }

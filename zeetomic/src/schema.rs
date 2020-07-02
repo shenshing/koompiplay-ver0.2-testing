@@ -54,6 +54,7 @@ table! {
         id -> Int4,
         wallet_id -> Varchar,
         wallet -> Varchar,
+        email -> Varchar,
     }
 }
 
