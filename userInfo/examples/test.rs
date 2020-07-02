@@ -30,6 +30,7 @@ use diesel::query_dsl::RunQueryDsl;
 use jsonwebtoken::Validation;
 
 use userInfo::models::stringObj;
+use userInfo::token::decode_token;
 
 // #[macro_use]
 // extern crate json;
@@ -42,18 +43,18 @@ fn main() {
     // let dec_res = jsonwebtoken::decode::<Claims>(&token, "secret".as_ref(), &Validation::default()).unwrap();
     // println!("{:#?}", dec_res);
 
-        let cors = rocket_cors::CorsOptions::default().to_cors().unwrap();
+        // let cors = rocket_cors::CorsOptions::default().to_cors().unwrap();
         
-        rocket::ignite()
-            // .mount("/", routes![get_profile])
-            // .mount("/", routes![upload])
-            // .mount("/", routes![])
-            // .mount("/", routes![sensitive])
-            // .mount("/", routes![all_type_register])
-            // .mount("/", routes![all_type_login])
-            .mount("/", routes![return_st])
-            // .attach(cors)
-            .launch();
+        // rocket::ignite()
+        //     // .mount("/", routes![get_profile])
+        //     // .mount("/", routes![upload])
+        //     // .mount("/", routes![])
+        //     // .mount("/", routes![sensitive])
+        //     // .mount("/", routes![all_type_register])
+        //     // .mount("/", routes![all_type_login])
+        //     .mount("/", routes![return_st])
+        //     // .attach(cors)
+        //     .launch();
 
     // let file_name = String::from("a.txt");
     // let file_fmt = format!("/home/koompi/Documents/koompi-play-production/userInfo/image-bank/{}", file_name);
@@ -116,4 +117,8 @@ fn main() {
 
     // println!("Hello World");
 
+
+    let st = String::from("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJrb29tcGlQbGF5IiwiZXhwIjoxNTkzMDc0NzQxLCJ1c2VyX2VtYWlsIjoic2hpbmcxQGdtYWlsLmNvbSIsInVzZXJfcm9sZSI6IlVzZXIifQ.UUG291rKWiEWjJHVZnhYkQzWnOFCFervJD8w5x6VqCw");
+    let result = decode_token(st);
+    println!("{:#?}", result);
 }

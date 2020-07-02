@@ -119,5 +119,7 @@ pub fn decode_token_result(token: String) -> Result<jsonwebtoken::TokenData<Clai
         aud: aud_value,
         ..Default::default()
     };
+    // jsonwebtoken::decode::<Claims>(&token, "secret".as_ref(), &validation)
+
     jsonwebtoken::decode::<Claims>(&token, "secret".as_ref(), &validation)
 }

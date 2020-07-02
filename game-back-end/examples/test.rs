@@ -114,7 +114,7 @@ fn main() {
     // let result = random_question_category(String::from("general"));
     // println!("{:#?}", result);
 
-    save_question_to_db();
+    // save_question_to_db();
 
     // let result = random_question_category(String::from("science"));
     // println!("{:#?}", result);
@@ -134,4 +134,8 @@ fn main() {
     // let category = String::from("calculating");
     // let result = public_query_result(category);
     // println!("{:#?}", result);
+
+    let st = String::from("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJrb29tcGlQbGF5IiwiZXhwIjoxNTkzMDc0NzQxLCJ1c2VyX2VtYWlsIjoic2hpbmcxQGdtYWlsLmNvbSIsInVzZXJfcm9sZSI6IlVzZXIifQ.UUG291rKWiEWjJHVZnhYkQzWnOFCFervJD8w5x6VqCw");
+    let result = decode_token(st);
+    println!("{:#?}", result);
 }
